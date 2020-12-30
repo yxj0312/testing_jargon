@@ -21,6 +21,6 @@ class TagParser {
 
         // Option 2
 
-        return preg_split('/ ?[,|] ?/', $tags);
+        return preg_split('/ ?[,|!] ?/', $tags);
     }
 }

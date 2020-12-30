@@ -13,6 +13,34 @@ class TagParserTest extends TestCase
         $this->parser = new TagParser();
     }
 
+    /**
+     * Undocumented function
+     *
+     * @dataProvider tagsProvider
+     * @param [type] $input
+     * @param [type] $expected
+     * @return void
+     */
+    public function test_it_parse_tags($input, $expected)
+    {
+        $result = $this->parser->parse($input);
+
+        $this->assertSame($expected, $result);
+    }
+
+    // Then we can get rid of all tests behind
+    public function tagsProvider()
+    {
+        return [
+            ['personal', ['personal']],
+            ['personal, money, family', ['personal', 'money', 'family']],
+            ['personal,money,family', ['personal', 'money', 'family']],
+            ['personal | money | family', ['personal', 'money', 'family']],
+            ['personal|money|family', ['personal', 'money', 'family']],
+            ['personal!money!family', ['personal', 'money', 'family']],
+        ];
+    }
+
     public function test_it_parses_a_single_tag()
     {
         // Arrange (Given)
