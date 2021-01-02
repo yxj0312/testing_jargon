@@ -8,7 +8,7 @@ class Questions implements Countable
 {
     protected array $questions;
 
-    protected $current = 0;
+    // protected $current = 0;
 
     public function __construct(array $questions = [])
     {
@@ -23,14 +23,21 @@ class Questions implements Countable
 
     public function next()
     {
-        if (! isset($this->questions[$this->current])) {
-            return false;
-        }
+        // use php current method to refactor
+        $question = current($this->questions);
 
-        $this->current++;
+        next($this->questions);
+
+        return $question;
+
+        // if (! isset($this->questions[$this->current])) {
+        //     return false;
+        // }
+
+        // $this->current++;
 
     
-        return $this->questions[$this->current - 1];
+        // return $this->questions[$this->current - 1];
     }
 
     public function count() {
