@@ -5,13 +5,18 @@ use Exception;
 
 class Quiz 
 {
-    protected array $questions;
+    protected Questions $questions;
 
     protected $currentQuestion = 1;
 
+    public function __construct()
+    {
+        $this->questions = new Questions();
+    }
+
     public function addQuestion(Question $question)
     {
-        $this->questions[] = $question;
+        $this->questions->add($question);
     }
 
     public function questions()
