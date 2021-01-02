@@ -8,6 +8,8 @@ class Questions implements Countable
 {
     protected array $questions;
 
+    protected $current = 0;
+
     public function __construct(array $questions = [])
     {
         $this->questions = $questions;
@@ -21,7 +23,14 @@ class Questions implements Countable
 
     public function next()
     {
-        return $this->questions[0];
+        if (! isset($this->questions[$this->current])) {
+            return false;
+        }
+
+        $this->current++;
+
+    
+        return $this->questions[$this->current - 1];
     }
 
     public function count() {
