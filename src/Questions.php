@@ -49,6 +49,11 @@ class Questions implements Countable
         return array_filter($this->questions, fn($question) => $question->answered());
     }
 
+    public function remaining()
+    {
+        return array_filter($this->questions, fn($question) => ! $question->answered());
+    }
+
     public function solved()
     {
         return array_filter($this->questions, fn($question) => $question->solved());

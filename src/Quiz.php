@@ -24,6 +24,11 @@ class Quiz
         return $this->questions;
     }
 
+    public function begin()
+    {
+        return $this->nextQuestion();
+    }
+
     public function nextQuestion()
     {
         return $this->questions->next();
@@ -40,13 +45,14 @@ class Quiz
 
     public function isComplete()
     {
-        $answeredQuestions = count($this->questions->answered());
+        // $answeredQuestions = count($this->questions->answered());
 
-        $totalQuestions = $this->questions->count();
+        // $totalQuestions = $this->questions->count();
         // $answeredQuestions = count(array_filter($this->questions, fn($question) => $question->answered()));
         // $totalQuestions  = count($this->questions);
 
-        return $answeredQuestions === $totalQuestions;
+        // return $answeredQuestions === $totalQuestions;
+        return  count($this->questions->answered()) === $this->questions->count();
     }
 
     public function grade()
@@ -63,7 +69,7 @@ class Quiz
         // $correct = count($this->correctlyAnsweredQuestions()); 
         $correct = count($this->questions->solved()); 
 
-        return ($correct / count($this->questions)) * 100;
+        return ($correct / $this->questions->count()) * 100;
     }
 
     // public function correctlyAnsweredQuestions()
