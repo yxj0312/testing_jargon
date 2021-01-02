@@ -26,20 +26,25 @@ class Quiz
 
     public function nextQuestion()
     {
-        if (! isset($this->questions[$this->currentQuestion - 1])) {
-            return false;
-        }
-        $question = $this->questions[$this->currentQuestion - 1];
+        return $this->questions->next();
 
-        $this->currentQuestion++;
+        // if (! isset($this->questions[$this->currentQuestion - 1])) {
+        //     return false;
+        // }
+        // $question = $this->questions[$this->currentQuestion - 1];
 
-        return $question;
+        // $this->currentQuestion++;
+
+        // return $question;
     }
 
     public function isComplete()
     {
-        $answeredQuestions = count(array_filter($this->questions, fn($question) => $question->answered()));
-        $totalQuestions  = count($this->questions);
+        $answeredQuestions = count($this->questions->answered());
+
+        $totalQuestions = $this->questions->count();
+        // $answeredQuestions = count(array_filter($this->questions, fn($question) => $question->answered()));
+        // $totalQuestions  = count($this->questions);
 
         return $answeredQuestions === $totalQuestions;
     }
@@ -55,19 +60,20 @@ class Quiz
             throw new Exception("This quiz has not yet been completed.");
         }
 
-        $correct = count($this->correctlyAnsweredQuestions()); 
+        // $correct = count($this->correctlyAnsweredQuestions()); 
+        $correct = count($this->questions->solved()); 
 
         return ($correct / count($this->questions)) * 100;
     }
 
-    public function correctlyAnsweredQuestions()
-    {
-        // return array_filter($this->questions, function($question) {
-        //     return $question->isCorrect();
-        // });
-        return array_filter(
-            $this->questions, 
-            fn($question) => $question->solved()
-        );
-    }
+    // public function correctlyAnsweredQuestions()
+    // {
+    //     // return array_filter($this->questions, function($question) {
+    //     //     return $question->isCorrect();
+    //     // });
+    //     return array_filter(
+    //         $this->questions, 
+    //         fn($question) => $question->solved()
+    //     );
+    // }
 }
